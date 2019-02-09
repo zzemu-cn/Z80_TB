@@ -1,0 +1,27 @@
+﻿使用工具 Icarus Verilog for Windows
+
+http://bleyer.org/icarus/
+http://bleyer.org/icarus/iverilog-10.1.1-x64_setup.exe
+
+加入路径
+C:\iverilog\bin
+C:\iverilog\gtkwave\bin
+
+建立一个仿真测试环境，找 nextz80 的 bug。
+
+生成内存文件需要安装 php
+cd D:\z80_tb_prj\prj
+php bin2tbmem.php rom/vtechv20.u12 tb/ROM.d 16384
+
+cd D:\z80_tb_prj\prj
+php buildmem.php tb/ram_tb.v.tpl tb/ram_2k_tb.v ram_2k_tb 11 8
+php buildmem.php tb/ram_tb.v.tpl tb/ram_16k_tb.v ram_16k_tb 14 8
+php buildmem.php tb/rom_tb.v.tpl tb/rom_16k_tb.v rom_16k_tb 14 8 tb/ROM.d
+
+
+执行仿真程序
+cd D:\z80_tb_prj\prj
+sim.cmd
+
+在 sim.cmd 中，同时打开 -DTV80=1 -DNEXTZ80=1，是用来对比两个 cpu 的差别。
+
