@@ -374,6 +374,8 @@ NextZ80 NEXT_Z80CPU (
 	.M1(CPU_M1)
 );
 
+assign CPU_RD = ~CPU_WR;
+
 `endif
 
 `endif
@@ -470,8 +472,11 @@ assign CPU_DI = 	ADDRESS_ROM			? SYS_ROM_DATA		:
 					ADDRESS_IO			? LATCHED_KEY_DATA	:
 					ADDRESS_VRAM		? VRAM_DATA_OUT		:
 					ADDRESS_RAM_16K		? RAM_16K_DATA_OUT	:
-					8'hzz;
-
+`ifdef SIMULATE
+					8'b1;
+`else
+					8'bz;
+`endif
 
 rom_16k_tb sys_rom(
 	.adr(CPU_A[13:0]),

@@ -194,6 +194,14 @@ module RAM16X8D_regs(
 	assign SPO = data[A];
 	
 	always @(posedge WCLK)
-		if(WE) data[A] <= D;		
+		if(WE) data[A] <= D;
+		
+`ifdef SIMULATE
+integer	i;
+initial
+	begin
+		for(i=0;i<15;i++)data[i]=0;
+	end
+`endif
 
 endmodule
